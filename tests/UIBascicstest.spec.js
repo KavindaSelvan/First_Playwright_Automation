@@ -1,6 +1,6 @@
 const {test} = require('@playwright/test');
 
-test ('Browser Context Playwright  test',async ({page})=>
+test ('Browser Context Playwright  test',async ({git initpage})=>
 {
    // const context = await browser.newContext();
    //const page = await context.newPage();
