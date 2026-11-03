@@ -1,7 +1,7 @@
 
 const { test, expect } = require('@playwright/test');
 
-test.only('Browser Context Playwright test', async ({ page }) => {
+test('Browser Context Playwright test', async ({ page }) => {
 
     await page.goto("https://rahulshettyacademy.com/loginpagePractise/");
 
@@ -18,7 +18,6 @@ test.only('Browser Context Playwright test', async ({ page }) => {
 
     // Check error message
     console.log(await page.locator("[style*='block']").textContent());
-
     await expect(page.locator("[style*='block']")).toContainText("Incorrect");
 
     // Second attempt - Correct username, same password
@@ -29,7 +28,9 @@ test.only('Browser Context Playwright test', async ({ page }) => {
     //console.log(await page.locator(".card-body").nth(1).textContent());
 
     //console.log(await cardTitles.nth(0).textContent());
-    //console.log(await cardTitles.nth(1).textContent());
+    //
+    
+    console.log(await cardTitles.nth(1).textContent());
     const allTitles = await cardTitles.allTextContents();
     console.log(cardTitles);
 
