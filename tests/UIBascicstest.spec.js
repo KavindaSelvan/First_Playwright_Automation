@@ -37,10 +37,23 @@ test('Browser Context Playwright test', async ({ page }) => {
 
 });
 
-test('First Playwright test', async ({ page }) => {
-
-    await page.goto("https://www.google.com/");
-
+test.only('UI Controls', async ({ page }) => {
+    
+    await page.goto("https://rahulshettyacademy.com/loginpagePractise/");
     console.log(await page.title());
 
+    const userName = page.locator("#username");
+    const signInBtn = page.locator("#signInBtn");
+    const dropdown = page.locator("select.form-control")
+
+    await userName.fill("rahulshettyacademy");
+    await page.locator("#password").fill("Learning@830$3mK2");
+    await page.locator(".radiotextsty").last().click();
+    await page.locator("#okayBtn").click();
+    console.log(expect(page.locator(".radiotextsty").last().isChecked()));
+    await expect(page.locator(".radiotextsty").last().toBeChecked());
+    // await dropdown.selectOption("consult");
+    // await signInBtn.click();
+    await page.pause();// it use like a debugger
+    
 });
