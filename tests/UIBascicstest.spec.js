@@ -44,16 +44,30 @@ test.only('UI Controls', async ({ page }) => {
 
     const userName = page.locator("#username");
     const signInBtn = page.locator("#signInBtn");
-    const dropdown = page.locator("select.form-control")
+    const dropdown = page.locator("select.form-control");
+    const documentLink = page.locator("[href*='document-request']");
 
     await userName.fill("rahulshettyacademy");
+    
     await page.locator("#password").fill("Learning@830$3mK2");
+    
     await page.locator(".radiotextsty").last().click();
     await page.locator("#okayBtn").click();
-    console.log(expect(page.locator(".radiotextsty").last().isChecked()));
-    await expect(page.locator(".radiotextsty").last().toBeChecked());
-    // await dropdown.selectOption("consult");
+    
+    console.log(await page.locator(".radiotextsty").last().isChecked());
+    await expect(page.locator(".radiotextsty").last()).toBeChecked();
+    await dropdown.selectOption("consult");
+
+    await page.locator("#terms").click();
+    console.log(await page.locator("#terms").isChecked());
+    await expect(page.locator("#terms")).toBeChecked();
+    await page.locator("#terms").uncheck();
+    console.log(await page.locator("#terms").isChecked());
+    expect(await page.locator("#terms").isChecked()).toBeFalsy();
+
+    await expect(documentLink).toHaveAttribute("class","blinkingText");
+    
     // await signInBtn.click();
-    await page.pause();// it use like a debugger
+    // await page.pause();// it use like a debugger
     
 });
