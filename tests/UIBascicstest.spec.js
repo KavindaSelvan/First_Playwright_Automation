@@ -45,7 +45,7 @@ test.only('UI Controls', async ({ page }) => {
     const userName = page.locator("#username");
     const signInBtn = page.locator("#signInBtn");
     const dropdown = page.locator("select.form-control");
-    const documentLink = page.locator("[href*='document-request']");
+    const documentLink = page.locator("[href*='documents-request']");
 
     await userName.fill("rahulshettyacademy");
     
@@ -71,3 +71,21 @@ test.only('UI Controls', async ({ page }) => {
     // await page.pause();// it use like a debugger
     
 });
+
+
+
+// test.only('Child window handle', async ({ page }) => {
+      
+//     await page.goto("https://rahulshettyacademy.com/loginpagePractise/");
+//     console.log(await page.title());
+
+//      const documentLink = page.locator("[href*='documents-request']");
+
+
+    
+  
+// });
+
+
+
+
