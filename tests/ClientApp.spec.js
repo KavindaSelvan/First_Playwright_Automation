@@ -52,7 +52,10 @@ test.only('Client App login', async ({ page }) => {
 
       }
   }
-  await page.pause();
+  await page.locator("[routerlink*='cart']" ).click();
+  await page.locator("div li").first().waitFor();
+  const bool = await page.locator("h3:has-text('Zara Coat 3')").isVisible();
+  expect(bool).toBeTruthy();
 
 });
 
