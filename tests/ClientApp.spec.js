@@ -24,4 +24,36 @@ test('has title', async ({ page }) => {
 
 });
 
+test.only('Client App login', async ({ page }) => {
+ 
+  const productsName = "ZARA COAT 3";
+  const products = page.locator(".card-body");
+  await page.goto("https://rahulshettyacademy.com/client/");
+  await page.locator("#userEmail").fill("kavindaselvan.work@gmail.com");
+  //await page.waitForTimeout(3000);
+  await page.locator("#userPassword").fill("Kavinda_Work@01");
+  //await page.waitForTimeout(3000);
+  await page.locator("#login").click();
+  //await page.waitForTimeout(3000);
+
+  await page.waitForLoadState('networkidle');
+  await page.locator(".card body b").allTextContents();
+
+  const titles = await page.locator(".card-body b").allTextContents();
+  console.log(titles);
+  const count = await  products.count();
+  for(let i=0; i< count ;++i)
+  {
+      if(await products.nth(i).locator("b").textContent() === productsName)
+      {
+        //add the Zara Coat3 to cart
+        await products.nth(i).locator("text= Add to Cart").click();
+        break;
+
+      }
+  }
+  await page.pause();
+
+});
+
 
