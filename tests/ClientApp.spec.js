@@ -56,6 +56,11 @@ test.only('Client App login', async ({ page }) => {
   await page.locator("div li").first().waitFor();
   const bool = await page.locator("h3:has-text('Zara Coat 3')").isVisible();
   expect(bool).toBeTruthy();
+  await page.locator("text=Checkout").click();
+ await page.getByPlaceholder("Select Country").fill("Sri");
+
+await page.locator(".ta-results").getByRole("button", { name: "Sri Lanka", exact: true }) .click();
+  await page.pause();
 
 });
 
