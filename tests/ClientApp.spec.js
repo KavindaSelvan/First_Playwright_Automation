@@ -24,7 +24,7 @@ test('has title', async ({ page }) => {
 
 });
 
-test.only('Client App login', async ({ page }) => {
+test('Client App login', async ({ page }) => {
  
   const productsName = "ZARA COAT 3";
   const products = page.locator(".card-body");
