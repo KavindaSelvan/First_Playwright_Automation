@@ -20,7 +20,7 @@ test('Playwright Special locators ', async ({ page }) => {
  
 });
 
-test.only('Playwright Test Level Time out', async ({ page }) => {
+test('Playwright Test Level Time out', async ({ page }) => {
   
   test.setTimeout(60000);//4th method
   //waitFor() -
