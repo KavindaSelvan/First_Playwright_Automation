@@ -37,28 +37,23 @@ test.only('Client App login', async ({ page }) => {
   await page.waitForLoadState('networkidle');
   await page.locator(".card body b").allTextContents();
 
-  const titles = await page.locator(".card-body b").allTextContents();
-  console.log(titles);
-  const count = await  products.count();
-  for(let i=0; i< count ;++i)
-  {
-      if(await products.nth(i).locator("b").textContent() === productsName)
-      {
-        //add the Zara Coat3 to cart
-        await products.nth(i).locator("text= Add to Cart").click();
-        break;
+  await page.locator(".card-body").filter({hasText:" ZARA COAT 3"}).getByRole("button",{name:"Add to Cart"}).click();
+  
+  //await page.pause();
 
-      }
-  }
-  await page.locator("[routerlink*='cart']" ).click();
-  await page.locator("div li").first().waitFor();
-  const bool = await page.locator("h3:has-text('Zara Coat 3')").isVisible();
-  expect(bool).toBeTruthy();
-  await page.locator("text=Checkout").click();
- await page.getByPlaceholder("Select Country").fill("Sri");
+   await page.locator("div li").first().waitFor();
+   await expect(page.getByText(" ZARA COAT 3")).toBeVisible();
 
-await page.locator(".ta-results").getByRole("button", { name: "Sri Lanka", exact: true }) .click();
-  await page.pause();
+   await page.getByRole("button",{name:"Checkout"}).click();
+
+   await page.getByPlaceholder("Select Country").pressSequentially("ind");
+
+   await page.getByRole("button",{name:"India"}).nth(1).click();
+
+   await page.getByText("PLACE ORDER").click();
+
+   await expect(page.getByText("Thankyou for your order.")).toBeVisible();
+  
 
 });
 
