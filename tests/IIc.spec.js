@@ -3,7 +3,7 @@ import { TIMEOUT } from 'node:dns';
 
 test('Playwright Special locators ', async ({ page }) => {
  
-  await page.goto("https://rahulshettyacademy.com/angularpractice/");   //getByLabel,getByPlaceholder,getByRole,selectOption,etByText,check,filter
+  await page.goto("https://rahulshettyacademy.com/angularpractice/");   
   await page.getByLabel("Check me out if you Love IceCreams!").click(); 
   await page.getByLabel("Student").check();                            
   await page.getByLabel("Gender").selectOption("Female");                
@@ -20,7 +20,7 @@ test('Playwright Special locators ', async ({ page }) => {
  
 });
 
-test('Playwright Test Level Time out', async ({ page }) => {
+test.only('Playwright Test Level Time out', async ({ page }) => {
   
   test.setTimeout(60000);//4th method
   //waitFor() -
@@ -37,10 +37,10 @@ test('Playwright Test Level Time out', async ({ page }) => {
   await page.getByText("Success! The Form has been submitted successfully!.").isVisible();
 
   //5Seconds default timeout for expect for expect assertions --{timeout:10000} Step Level 
-  await slowExpect(page.getByText("Success! The Form has been submitted successfully!.")).isVisible();
+  await slowExpect(page.getByText("Success! The Form has been submitted successfully!.")).toBeVisible();
 
   await page.getByRole("link",{name : "shop"}).click();
-  await slowExpect(page.locator(".my-4")).first().toHaveText("Shop");
+  await slowExpect(page.locator(".my-4").first()).toHaveText("Shop Name");
   //2more
   await page.locator("app-card").filter({hasText: 'Nokia Edge'}).getByRole("button").click();
  
