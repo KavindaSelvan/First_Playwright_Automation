@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { pathToFileURL } from 'node:url';
 
-test.only('Popup Validation', async ({ page }) => {
+test('Popup Validation', async ({ page }) => {
     await page.goto("https://rahulshettyacademy.com/AutomationPractice/");
     // await page.goto("https://www.google.com/m");
     // await page.goBack();
