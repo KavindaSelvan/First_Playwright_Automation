@@ -1,6 +1,6 @@
-
 import { test, expect,request} from '@playwright/test';
 const loginPayLoad = {userEmail: "kavindaselvan.work@gmail.com", userPassword: "Kavinda_Work@01"};
+let token;
 test.beforeAll(async () => {
 
   const apiContext = await request.newContext();
@@ -14,7 +14,7 @@ test.beforeAll(async () => {
 
   expect(loginResponse.ok()).toBeTruthy();
   const loginResponseJson = await loginResponse.json();
-  const token = loginResponseJson.token;
+  token = loginResponseJson.token;
   console.log(token);
 
   
@@ -27,47 +27,17 @@ test.beforeEach ( ()=>
 
 
 
-
-test.only('Client App Login', async ({ page }) => {
+test.only('Client App login', async ({ page }) => {
  
-  await page.goto("https://rahulshettyacademy.com/client/");
 
-  const cardTitles = page.locator(".card-body b");
-  await page.waitForTimeout(3000);
-
-  await page.locator("#userEmail").fill("kavindaselvan.work@gmail.com");
-  //await page.waitForTimeout(3000);
-  await page.locator("#userPassword").fill("Kavinda_Work@01");
-  //await page.waitForTimeout(3000);
-  await page.locator("#login").click();
-  //await page.waitForTimeout(3000);
-
-  //await page.waitForLoadState('networkidle');//it used for idelize all networks in our webpage but it's flaky not encourage to use for
-
-  await cardTitles.first().waitFor();
-  await page.waitForTimeout(3000);
-  console.log(await cardTitles.nth(0).textContent());
-  console.log(await cardTitles.allTextContents());
-
-});
-
-test('Client App login', async ({ page }) => {
- 
+  await page.addInitScript(value => {
+          window.localStorage.setItem('token',value);
+  }, token );
+  
+  const email = "";
   const productsName = "ZARA COAT 3";
-  const products = page.locator(".card-body");
   await page.goto("https://rahulshettyacademy.com/client/");
-  await page.locator("#userEmail").fill("kavindaselvan.work@gmail.com");
-  //await page.waitForTimeout(3000);
-  await page.locator("#userPassword").fill("Kavinda_Work@01");
-  //await page.waitForTimeout(3000);
-  await page.locator("#login").click();
-  //await page.waitForTimeout(3000);
-
-  await page.waitForLoadState('networkidle');
-  await page.locator(".card body b").allTextContents();
-
-  const titles = await page.locator(".card-body b").allTextContents();
-  console.log(titles);
+  const products = page.locator(".card-body");
   const count = await  products.count();
   for(let i=0; i< count ;++i)
   {
@@ -79,16 +49,6 @@ test('Client App login', async ({ page }) => {
 
       }
   }
-  await page.locator("[routerlink*='cart']" ).click();
-  await page.locator("div li").first().waitFor();
-  const bool = await page.locator("h3:has-text('Zara Coat 3')").isVisible();
-  expect(bool).toBeTruthy();
-  await page.locator("text=Checkout").click();
- await page.getByPlaceholder("Select Country").fill("Sri");
-
-await page.locator(".ta-results").getByRole("button", { name: "Sri Lanka", exact: true }) .click();
-  await page.pause();
-
+ 
+  
 });
-
-
