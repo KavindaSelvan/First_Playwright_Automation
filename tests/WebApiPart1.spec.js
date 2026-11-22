@@ -1,18 +1,22 @@
 
 import { test, expect,request} from '@playwright/test';
 const loginPayLoad = {userEmail: "kavindaselvan.work@gmail.com", userPassword: "Kavinda_Work@01"};
+test.beforeAll(async () => {
 
-test.beforeAll ( ()=>
-{
   const apiContext = await request.newContext();
-  const loginResponse = apiContext.post("https://rahulshettyacademy.com/api/ecom/auth/login",
+
+  const loginResponse = await apiContext.post(
+    "https://rahulshettyacademy.com/api/ecom/auth/login",
     {
-        data:loginPayLoad
+      data: loginPayLoad
     }
-  ) //200,201
+  );
+
   expect(loginResponse.ok()).toBeTruthy();
-  const loginResponseJson=  loginResponse.json();
-  const token = loginResponseJson.token();
+  const loginResponseJson = await loginResponse.json();
+  const token = loginResponseJson.token;
+  console.log(token);
+
   
 });
 
@@ -24,7 +28,7 @@ test.beforeEach ( ()=>
 
 
 
-test('Client App Login', async ({ page }) => {
+test.only('Client App Login', async ({ page }) => {
  
   await page.goto("https://rahulshettyacademy.com/client/");
 
